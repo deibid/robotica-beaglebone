@@ -5,6 +5,14 @@ body{
     
 }
 
+
+
+#letterArray{
+    
+    color: white;
+    
+}
+
 #chessBoardContainer{
     
     background: white;
@@ -81,9 +89,13 @@ body{
     border-radius: 2px;
     width: 80%;
     height: auto;
+    
     font-size: 2em;
     position: relative;
     border: none;
+    width: auto;
+    border-radius: 100px;
+    padding: 50px;
     
 
     

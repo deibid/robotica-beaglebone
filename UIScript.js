@@ -9,6 +9,14 @@ window.onload = function createDiv(){
     
     console.log("SI");
     var chessBoard = document.getElementById("rowContainers");
+    var letterArray = document.getElementById("letterArray");
+    
+    var boardWidth = chessBoard.offsetWidth;
+    console.log(boardWidth);
+    //boardWidth = boardWidth/8;
+    letterArray.style.letterSpacing = boardWidth;
+    
+    
     
     for(var j = 0;j<8;j++){
         var row = document.createElement("div");
