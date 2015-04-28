@@ -1,7 +1,8 @@
-var colorLight = "rgba(227, 206, 170,1)";
-var colorDark =  "rgba(100, 83, 74,1)";
-var colorSelected = "rgba(53, 123, 202,0.7)";
-
+var colorLight = "rgba(227, 206, 170,1)"; //claro = #E3CEAA
+var colorDark =  "rgba(100, 83, 74,1)";  //obscuro = #64534A
+var colorSelected = "rgba(53, 123, 202,0.7)"; 
+var colorGoButtonEnabled = "rgba(27, 107, 23,1)";
+var colorGoButtonDisabled = "rgba(27, 107, 23,0.5)";
 
 var origin = "00";
 var destination = "00";
@@ -12,16 +13,21 @@ var destinationColor;
 var originLabel;
 var destinationLabel;
 
+var goButton;
+
 
 
 window.onload = function createDiv(){
 
 
-    //obscuro = #64534A
-    //claro = #E3CEAA
-    //margen = #291E0C
+   
+    
+    goButton = document.getElementById("goButton");
+    
 
 
+    
+    
     var letters = ['A','B','C','D','E','F','G','H'];
 
 
@@ -102,35 +108,43 @@ function chessClick(id){
         console.log("origin: "+origin);
         originColor = color;
         square.style.background = colorSelected;
+        goButtonStateChange(true);
 
     }
 
     else if(origin != "00" && destination == "00"){
 
+        goButtonStateChange(true);
         console.log("Caso 1");
         if(square.id == origin){
             square.style.background = originColor;
             origin = "00";
+            goButtonStateChange(true);
         }
         else{
             destination = square.id;
             destinationColor = color;
             square.style.background = colorSelected;
+            goButtonStateChange(false);
         }
 
     }
 
     else if(origin == "00" && destination != "00"){
 
+        
         console.log("Caso 2");
          if(square.id == destination){
             square.style.background = destinationColor;
             destination = "00";
+             goButtonStateChange(true);
+             
         }
         else{
             origin = square.id;
             originColor = color;
             square.style.background = colorSelected;
+            goButtonStateChange(false);
         }
 
     }
@@ -138,6 +152,8 @@ function chessClick(id){
 
     else if(origin != "00" && destination != "00"){
 
+        goButtonStateChange(false);
+        
         console.log("Caso 3");
         console.log("final origin "+ origin);
         console.log("final destination "+ destination);
@@ -145,10 +161,12 @@ function chessClick(id){
         if(square.id == destination){
             destination = "00";
             square.style.background = destinationColor;
+            goButtonStateChange(true);
         }
         if(square.id == origin){
             origin = "00";
             square.style.background = originColor;
+            goButtonStateChange(true);
         }
 
     }
@@ -163,6 +181,18 @@ function chessClick(id){
 
 }
 
+
+function goButtonStateChange(flag){
+    
+    if(flag){
+        goButton.disabled = true;
+        goButton.style.backgroundColor = colorGoButtonDisabled;
+    }
+    else{
+        goButton.disabled = false;
+        goButton.style.backgroundColor = colorGoButtonEnabled;
+    }
+}
 
 function formatCoordinates(){
 
