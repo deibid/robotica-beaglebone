@@ -19,6 +19,12 @@ body{
     
     height: 98vh;
     width: 69vw;
+    
+    /*
+    height: 98%;
+    width: 69%;
+    */
+    float: left;
     display: inline-block;
     
 }
@@ -30,22 +36,34 @@ body{
     background: #291E0C;
     height: 95vh;
     width: 95vh;
+    /*width:95%;
+    width: 95%;*/
     margin: 0 auto;
-    top: 50%;
-    transform: translateY(-50%);
+    /*top: 50%;*/
+    /*transform: translateY(-50%);*/
     text-align: center;
 }
 
+#rowContainers{
+    position: relative;
+    top: 5%;
+    left: 18%;
+    
+    
+}
 
 #controlPanel{
     
     background: gray;
     height: 98vh;
     width: 29vw;
+    /*height: 98%;
+    width:29%;*/
     display: inline-block;
     text-align: center;
     position: absolute;
     margin-left: 0.5%;
+    float: right;
     
     
     
@@ -54,7 +72,7 @@ body{
 
 .label{
     font-family: "Trebuchet MS", Helvetica, sans-serif;
-    font-size: 2em;
+    font-size: 1.2em;
 
 }
 
@@ -65,7 +83,7 @@ body{
 .coordinates{
     
     position: relative;
-    border: 1px solid white;
+    /*border: 1px solid white;*/
     width: 80%;
     left: 10%;
     font-size: 1.5em;
@@ -75,12 +93,7 @@ body{
     
 }
 
-#rowContainers{
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    
-}
+
 
 
 #goButton{
@@ -102,4 +115,18 @@ body{
     
     
     
+}
+
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+    /*Chrome CSS here*/
+
+   
+}
+
+
+*:hover{
+    cursor:crosshair;
 }
