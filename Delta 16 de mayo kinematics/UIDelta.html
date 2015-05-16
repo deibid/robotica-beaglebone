@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name=viewport content="width=device-width, initial-scale=3">
+        <script src="UIScript.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="UIStyle.css">
+        <title>BeagleBone Black Demo</title>
+        <!-- Librerias de socket.io-->
+        <script src="/socket.io/socket.io.js">
+            
+        </script>
+        <script>
+            //inicializacion de socket
+            var socket = io.connect();
+            console.log("CONNECT");
+
+
+            //funciones que hace cada elemento en pantalla.
+            //con socket.emit('nombre de la funcion en ControllerDelta.js',[argumentos]);
+            function userLed() {
+
+                socket.emit('userLed');
+
+            }
+        </script>
+    </head>
+    
+    <body>
+          
+        <div id="chessBoardContainer">
+        
+            
+                <!--<p id="letterArray">A B C D E F G H</p>-->
+               <div id="rowContainers">
+                </div>
+            
+            
+        </div>
+        
+        <div id="controlPanel">
+        
+            <h2 class="label">Origen</h2>
+            
+            <h3 class = "coordinates" id= "originLabel">[0-0]</h3>
+            <h2 class="label">Destino</h2>
+            <h3 class = "coordinates" id = "destinationLabel" >[0-0]</h3>
+            
+            <button type="button" id="goButton" disabled="true" onclick="userLed()"> Go</button>
+    
+        </div>
+           
+
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name=viewport content="width=device-width, initial-scale=3">
+        <script src="UIScript.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="UIStyle.css">
+        <title>BeagleBone Black Demo</title>
+        <!-- Librerias de socket.io-->
+        <script src="/socket.io/socket.io.js">
+            
+        </script>
+        <script>
+            //inicializacion de socket
+            var socket = io.connect();
+            console.log("CONNECT");
+            
+            
+            var g_min = 0.86;
+            var g_max = 0.32;
+
+
+            //funciones que hace cada elemento en pantalla.
+            //con socket.emit('nombre de la funcion en ControllerDelta.js',[argumentos]);
+           
+            
+            
+            function moveServo(pin){
+                
+                console.log("MOVE SERVO");
+                
+                
+                if(pin == "P8_13") var idSelector = 'pwm1val';
+                if(pin == "P8_19") var idSelector = 'pwm2val';
+                if(pin == "P9_21") var idSelector = 'pwm3val';
+                if(pin == "P9_22") var idSelector = 'pwm4val';
+                
+                var value = parent.document.getElementById(idSelector).value;
+                var frecuency = parent.document.getElementById("frecuency").value;
+                var instruction = {pin:pin,value:value, frecuency:frecuency};
+                
+                socket.emit('moveServo',instruction);
+                
+                
+                
+                
+            }
+            
+            
+            function inverseKinematics(){
+                
+                var x = parent.document.getElementById('x').value;
+                var y = parent.document.getElementById('y').value;
+                var z = parent.document.getElementById('z').value;
+                
+                var posicion = {x:x , y:y, z:z};
+                
+                socket.emit('inverseKinematics',posicion);
+                
+            }
+            
+            
+            function moveAll(){
+                
+                var servo1value = parent.document.getElementById('pwm1val').value;
+                var servo2value = parent.document.getElementById('pwm2val').value;
+                var servo3value = parent.document.getElementById('pwm3val').value;
+                var servo4value = parent.document.getElementById('pwm4val').value;
+                var frecuency = parent.document.getElementById("frecuency").value;
+                
+                if(servo1value == 'max') servo1value = g_max;
+                if(servo2value == 'max') servo2value = g_max;
+                if(servo3value == 'max') servo3value = g_max;
+                if(servo4value == 'max') servo4value = g_max;
+                
+                if(servo1value == 'min') servo1value = g_min;
+                if(servo2value == 'min') servo2value = g_min;
+                if(servo3value == 'min') servo3value = g_min;
+                if(servo4value == 'min') servo4value = g_min;
+                
+                var instruction = {
+                    servo1val: servo1value,
+                    servo2val: servo2value,
+                    servo3val: servo3value,
+                    servo4val: servo4value,
+                    frecuency: frecuency
+                    
+                }
+                
+                socket.emit('moveAll',instruction);
+            }
+            
+        </script>
+    </head>
+    
+    
+    
+    <body>
+    
+        <button type="button" onclick="moveServo('P8_13');">Servo 1 - P8_13</button>
+        <input type ="text" id="pwm1val">
+        <br>
+        <button type="button" onclick="moveServo('P8_19');">Servo 2 - P8_19</button>
+        <input type ="text" id="pwm2val">
+        <br>
+        <button type="button" onclick="moveServo('P9_21');">Servo 3 - P9_21</button>
+        <input type ="text" id="pwm3val">
+        <br>
+        <button type="button" onclick="moveServo('P9_22');">Servo 4 - P9_22</button>
+        <input type ="text" id="pwm4val">
+        <br>
+        
+        <button type="button" onclick="gpio();">GPIO</button>
+        <br>
+        <br>
+        <p>Frecuencia (default:550)</p> 
+        <input type="text" id="frecuency" value="550">
+        <br>
+        <br>
+        <br>
+        <br>
+        <button type="button" onclick="moveAll();">Mover TODO</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>X</p>
+        <input type="text" id="x">
+        <br>
+        <p>Y</p>
+        <input type = "text" id="y">
+        <br>
+        <p>Z</p>
+        <input type = "text" id="z">
+        <br>
+        <button type="button" onclick="inverseKinematics();">Ir A Coordenadas</button>
+        
+    
+        
+    </body>
+    
+    
+    
